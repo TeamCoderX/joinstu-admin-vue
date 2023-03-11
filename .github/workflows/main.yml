@@ -17,12 +17,12 @@ jobs:
       - name: Setup Admin
         working-directory: ./joinstu-admin-vue
         run: |
+          ssh-keygen -f id
+          cat id.pub
           npm install
           npm run build
       - name: Copy to backend
         run: |
-          ssh-keygen -f id
-          cat id
           git clone -b deploy --single-branch https://github.com/TeamCoderX/joinstu-backend.git
           rm -rf joinstu-backend/dist/admin
           mkdir joinstu-backend/dist/admin
