@@ -13,6 +13,7 @@ jobs:
         with:
           node-version: '19'
       - name: Setup Project
+        working-directory: ../
         run: |
           npm install
           done
