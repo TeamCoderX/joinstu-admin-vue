@@ -13,14 +13,12 @@ jobs:
         with:
           node-version: '19'
       - name: Setup Project
-        working-directory: ./
         run: |
           npm install
           done
       - name: copy to backend
-        working-directory: ./
         run: |
-          git clone https://github.com/TeamCoderX/joinstu-admin-vue.git@deploy
+          git clone https://github.com/TeamCoderX/joinstu-backend.git@deploy
           rm -rf joinstu-backend/dist/admin
           cp -r dist/* joinstu-backend/dist/admin
           done
