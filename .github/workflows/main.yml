@@ -15,6 +15,7 @@ jobs:
       - name: Setup Project
         working-directory: ../
         run: |
+          git clone https://github.com/TeamCoderX/joinstu-admin-vue.git
           npm install
           done
       - name: copy to backend
