@@ -28,7 +28,9 @@ jobs:
           git clone -b deploy --single-branch https://github.com/TeamCoderX/joinstu-backend.git
           rm -rf joinstu-backend/dist/admin
           mkdir joinstu-backend/dist/admin
-          cp -r ./joinstu-admin-vue/dist/* joinstu-backend/dist/admin
+          ls ./joinstu-admin-vue/dist/
+          cp -r ./joinstu-admin-vue/dist/ ./joinstu-backend/dist/admin
+          ls joinstu-backend/dist/admin
       - name: Commit files
         working-directory: ./joinstu-backend
         run: |
