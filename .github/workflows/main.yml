@@ -19,12 +19,12 @@ jobs:
         run: |
           npm install
           npm run build
-      - name: copy to backend
+      - name: Copy to backend
         run: |
           git clone -b deploy --single-branch https://github.com/TeamCoderX/joinstu-backend.git
           rm -rf joinstu-backend/dist/admin
           mkdir joinstu-backend/dist/admin
-          cp -r dist/* joinstu-backend/dist/admin
+          cp -r ./joinstu-admin-vue/dist/* joinstu-backend/dist/admin
       - name: Commit files
         working-directory: ./joinstu-backend
         run: |
