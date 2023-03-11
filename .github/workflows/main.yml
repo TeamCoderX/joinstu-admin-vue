@@ -12,13 +12,11 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '19'
-      - name: Setup Project
-        run: |
-          ls
-          git clone https://github.com/TeamCoderX/joinstu-admin-vue.git
-          ls
-          npm install
-          done
+      - name: Clone Admin
+        run: git clone https://github.com/TeamCoderX/joinstu-admin-vue.git
+      - name: Setup Admin
+        work-directory: ./joinstu-admin-vue
+        run: npm install
       - name: copy to backend
         run: |
           git clone -b deploy --single-branch https://github.com/TeamCoderX/joinstu-backend.git
