@@ -28,7 +28,7 @@ jobs:
       - name: Commit files
         working-directory: ./joinstu-backend
         run: |
-          git config --local user.email "action@github.com"
+          git config --local user.email "coderunner@coderx.com"
           git config --local user.name "GitHub Action"
           git commit -m "Add changes" -a
           git push
