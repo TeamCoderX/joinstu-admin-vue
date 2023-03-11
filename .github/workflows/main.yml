@@ -5,11 +5,11 @@ on:
 jobs:
   my_job:
     name: build to backend
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     
     steps: 
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: '19'
       - name: Setup Project
