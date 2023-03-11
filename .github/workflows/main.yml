@@ -13,7 +13,6 @@ jobs:
         with:
           node-version: '19'
       - name: Setup Project
-        working-directory: ../
         run: |
           ls
           git clone https://github.com/TeamCoderX/joinstu-admin-vue.git
