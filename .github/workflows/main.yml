@@ -21,20 +21,21 @@ jobs:
       - name: Setup Admin Files
         working-directory: ./joinstu-admin-vue
         run: |
-          # npm install
-          # npm run build
+          npm install
+          npm run build
       - name: Copy to backend 
         run: |
-          # git clone -b deploy --single-branch https://github.com/TeamCoderX/joinstu-backend.git
-          # rm -rf joinstu-backend/dist/admin
-          # mkdir joinstu-backend/dist/admin
-          # cp -r ./joinstu-admin-vue/dist/* joinstu-backend/dist/admin
+          git clone -b deploy --single-branch https://github.com/TeamCoderX/joinstu-backend.git
+          rm -rf joinstu-backend/dist/admin
+          mkdir joinstu-backend/dist/admin
+          cp -r ./joinstu-admin-vue/dist/* joinstu-backend/dist/admin
       - name: Commit files
         working-directory: ./joinstu-backend
         run: |
+          git config --global url."git@github.com:".insteadOf "https://github.com/"
           git config --global user.email "action@coderx.com"
           git config --global user.name "Team-coderX"
-          # git commit -m "Add changes" -a
-          # git push
+          git commit -m "Add changes" -a
+          git push
         
 
