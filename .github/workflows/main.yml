@@ -10,12 +10,13 @@ jobs:
     steps: 
       - name: Setup Node
         uses: actions/setup-node@v2
+        with:
+          node-version: '19'
+      - name: Setup git
         run: |
           git config --global credential.credentialStore dpapi 
           git config --local user.email ""
           git config --local user.name "GitHub Action"
-        with:
-          node-version: '19'
       - name: Clone Admin
         run: git clone https://github.com/TeamCoderX/joinstu-admin-vue.git
       - name: Setup Admin
