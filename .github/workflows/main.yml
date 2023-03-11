@@ -14,7 +14,6 @@ jobs:
           node-version: '19'
       - name: Setup git
         run: |
-          git config --global credential.credentialStore dpapi 
           git config --local user.email ""
           git config --local user.name "GitHub Action"
       - name: Clone Admin
@@ -26,6 +25,7 @@ jobs:
           npm run build
       - name: Copy to backend
         run: |
+          git config --global credential.credentialStore dpapi 
           git clone -b deploy --single-branch https://Team-coderX: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@github.com/TeamCoderX/joinstu-backend.git
           rm -rf joinstu-backend/dist/admin
           mkdir joinstu-backend/dist/admin
