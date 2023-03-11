@@ -19,14 +19,12 @@ jobs:
         run: |
           npm install
           npm run build
-          done
       - name: copy to backend
         run: |
           git clone -b deploy --single-branch https://github.com/TeamCoderX/joinstu-backend.git
           rm -rf joinstu-backend/dist/admin
           mkdir joinstu-backend/dist/admin
           cp -r dist/* joinstu-backend/dist/admin
-          done
       - name: Commit files
         working-directory: ./joinstu-backend
         run: |
@@ -34,6 +32,5 @@ jobs:
           git config --local user.name "GitHub Action"
           git commit -m "Add changes" -a
           git push
-          done
         
 
