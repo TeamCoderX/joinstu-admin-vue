@@ -32,9 +32,10 @@ jobs:
           cp -r ./joinstu-admin-vue/dist/* ./joinstu-backend/dist/admin
           echo yeeee
           ls joinstu-backend/dist/admin
-      - name: Commit files
+      - name: Commit Files
         working-directory: ./joinstu-backend
         run: |
+          git add dist/admin/
           git config --global url."git@github.com:".insteadOf "https://github.com/"
           git config --global user.email "action@coderx.com"
           git config --global user.name "Team-coderX"
