@@ -12,8 +12,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '19'
-      - name: Setup git
-        run: |
       - name: Clone Admin
         run: git clone https://github.com/TeamCoderX/joinstu-admin-vue.git
       - name: Setup Admin
@@ -23,7 +21,9 @@ jobs:
           npm run build
       - name: Copy to backend
         run: |
-          git config --global credential.credentialStore dpapi
+          # git config --global credential.credentialStore dpapi
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           git clone -b deploy --single-branch https://Team-coderX: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@github.com/TeamCoderX/joinstu-backend.git
           rm -rf joinstu-backend/dist/admin
           mkdir joinstu-backend/dist/admin
@@ -31,8 +31,6 @@ jobs:
       - name: Commit files
         working-directory: ./joinstu-backend
         run: |
-          git config --local user.email ""
-          git config --local user.name "GitHub Action"
           git commit -m "Add changes" -a
           git push
         
