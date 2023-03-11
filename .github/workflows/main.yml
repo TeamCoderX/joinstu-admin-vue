@@ -17,8 +17,6 @@ jobs:
       - name: Setup Admin
         working-directory: ./joinstu-admin-vue
         run: |
-          ssh-keygen -f id
-          cat id.pub
           npm install
           npm run build
       - name: Copy to backend
