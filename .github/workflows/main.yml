@@ -13,7 +13,7 @@ jobs:
         with:
           node-version: '19'
       - name: Clone Admin
-        run: git clone https://github.com/TeamCoderX/joinstu-admin-vue.git
+        run: git clone git@github.com:TeamCoderX/joinstu-admin-vue.git
       - name: Setup Admin
         working-directory: ./joinstu-admin-vue
         run: |
@@ -21,7 +21,7 @@ jobs:
           npm run build
       - name: Copy to backend
         run: |
-          git clone -b deploy --single-branch https://github.com/TeamCoderX/joinstu-backend.git
+          git clone -b deploy --single-branch git@github.com:TeamCoderX/joinstu-backend.git
           rm -rf joinstu-backend/dist/admin
           mkdir joinstu-backend/dist/admin
           cp -r ./joinstu-admin-vue/dist/* joinstu-backend/dist/admin
