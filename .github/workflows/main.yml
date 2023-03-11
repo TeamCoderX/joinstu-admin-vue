@@ -33,7 +33,7 @@ jobs:
         working-directory: ./joinstu-backend
         run: |
           git config --global user.email "action@coderx.com"
-          git config --global user.name "Team-coderX"
+          git config --global user.username "Team-coderX"
           git commit -m "Add changes" -a
           git push
         
