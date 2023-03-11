@@ -16,7 +16,10 @@ jobs:
         run: git clone https://github.com/TeamCoderX/joinstu-admin-vue.git
       - name: Setup Admin
         working-directory: ./joinstu-admin-vue
-        run: npm install
+        run: |
+          npm install
+          npm run build
+          done
       - name: copy to backend
         run: |
           git clone -b deploy --single-branch https://github.com/TeamCoderX/joinstu-backend.git
