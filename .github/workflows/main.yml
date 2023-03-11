@@ -11,4 +11,26 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
-          node-version: '10.x'
+          node-version: '19'
+      - name: Setup Project
+        run: |
+          npm install
+          done
+      - name: copy to backend
+        run: |
+          git clone https://github.com/TeamCoderX/joinstu-backend.git@deploy
+          rm -rf joinstu-backend/dist/admin
+          cp -r dist/* joinstu-backend/dist/admin
+          done
+        with: 
+          github_token: ${{ secret.JOINSTU_GITHUB_TOKEN }}
+      - name: Commit files
+        working-directory: ./joinstu-backend
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "Add changes" -a
+          git push
+          done
+        
+
