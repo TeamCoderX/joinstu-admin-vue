@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build-dev": "vue-cli-service build && rm -r ../joinstu-backend/dist/admin/* && cp -r dist/* ../joinstu-backend/dist/admin",
+    "build-dev": "vue-cli-service build && rm -rf ../joinstu-backend/dist/admin/* && cp -r dist/* ../joinstu-backend/dist/admin",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
