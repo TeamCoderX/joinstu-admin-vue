@@ -16,9 +16,12 @@
                                 <img style="height: 1em;" src="@/assets/images/logo/black.svg">
                             </div>
                             <form class="text-center" action="">
-                                <div v-if="alert != ''" class="alert alert-danger" role="alert">
+                                <div v-if="alert != ''" class="alert alert-danger alert-dismissible fade show" role="alert">
                                     <i class="bi bi-exclamation-triangle" style="margin-right: 1em;"></i>
                                     <strong>{{ alert }}</strong>
+                                    <button type="button" class="btn close align-items-end" data-dismiss="alert" aria-label="Close" @click="clearAlert">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
                                 <div class="mb-3">
                                     <input v-model="name" class="form-control" type="text" placeholder="Account" required>
@@ -58,6 +61,9 @@ export default {
         }
     },
     methods: {
+        clearAlert() {
+            this.alert = ''
+        },
         login() {
             this.status.loginSending = true
             if (this.name == '' || this.password == '') {
