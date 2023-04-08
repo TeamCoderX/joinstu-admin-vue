@@ -13,14 +13,12 @@
                                     <th class="text-uppercase border-0 font-medium" scope="col">#</th>
                                     <th class="text-uppercase border-0 font-medium" scope="col"><a
                                             @click="sort('name')">姓名</a></th>
-                                    <th class="text-uppercase border-0 font-medium" scope="col"><a
-                                            @click="sort('id')">ID</a></th>
-                                    <th class="text-uppercase border-0 font-medium" scope="col"><a
-                                            @click="sort('school')">學校</a></th>
+                                    <th class="text-uppercase border-0 font-medium" scope="col"><a @click="sort('id')">ID</a></th>
+                                    <th class="text-uppercase border-0 font-medium" scope="col">Email</th>
+                                    <th class="text-uppercase border-0 font-medium" scope="col">學校</th>
                                     <th class="text-uppercase border-0 font-medium" scope="col"><a
                                             @click="sort('joindate')">加入日期</a></th>
-                                    <th class="text-uppercase border-0 font-medium" scope="col"><a
-                                            @click="sort('isAdmin')">身分</a></th>
+                                    <th class="text-uppercase border-0 font-medium" scope="col">身分</th>
                                     <th class="text-uppercase border-0 font-medium" scope="col">管理</th>
                                 </tr>
                             </thead>
@@ -31,9 +29,9 @@
                                         <h5 class="font-medium mb-0">{{ item.name }}</h5>
                                     </td>
                                     <td><span class="text-muted">{{ item.id }}</span><br></td>
+                                    <td><span class="text-muted">{{ item.email }}</span></td>
                                     <td><span class="text-muted">{{ item.school }}</span><br></td>
-                                    <td><span class="text-muted">{{ new Date(item.joindate).toLocaleDateString()
-                                    }}</span><br></td>
+                                    <td><span class="text-muted">{{ new Date(item.joindate).toLocaleDateString() }}</span><br></td>
                                     <td><span>{{ (item.isAdmin == true) ? '管理員' : '學生' }}</span></td>
                                     <td style="padding: 0;">
                                         <div class="container d-flex justify-content-around">
@@ -90,7 +88,7 @@ export default {
                 this.sortStatus = -1 * this.sortStatus;
                 return a[col].localeCompare(b[col]);
             })
-            if(this.sortStatus) {
+            if (this.sortStatus) {
                 this.accountsData.reverse();
             }
             this.sortStatus = !this.sortStatus;
