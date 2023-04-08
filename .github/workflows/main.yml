@@ -13,22 +13,23 @@ jobs:
         with:
             ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: '19'
-      - name: Clone Admin
+      - name: Clone Index
         run: git clone https://github.com/TeamCoderX/joinstu-admin-vue.git
-      - name: Setup Admin Files
+      - name: Setup Index Files
         working-directory: ./joinstu-admin-vue
         run: |
           npm install
-          npm run build
-      - name: Copy to backend 
+      - name: Clone backend 
         run: |
           git clone -b deploy --single-branch https://github.com/TeamCoderX/joinstu-backend.git
-          rm -rf joinstu-backend/dist/admin
-          mkdir joinstu-backend/dist/admin
-          cp -r ./joinstu-admin-vue/dist/* ./joinstu-backend/dist/admin
+      - name: build to backend
+        working-directory: ./joinstu-backend
+        run: |
+          rm .gitignore
+          bash build.sh admin
       - name: Commit Files
         working-directory: ./joinstu-backend
         run: |
@@ -38,5 +39,3 @@ jobs:
           git config --global user.name "Team-coderX"
           git commit -m "Add changes" -a
           git push
-        
-
