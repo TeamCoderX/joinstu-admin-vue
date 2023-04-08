@@ -10,36 +10,52 @@
                         <table class="table no-wrap user-table mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase border-0 font-medium" scope="col">姓名</th>
-                                    <th class="text-uppercase border-0 font-medium" scope="col">ID</th>                                    
-                                    <th class="text-uppercase border-0 font-medium" scope="col">學校</th>
-                                    <th class="text-uppercase border-0 font-medium" scope="col">加入日期</th>
-                                    <th class="text-uppercase border-0 font-medium" scope="col">身分</th>
+                                    <th class="text-uppercase border-0 font-medium" scope="col">#</th>
+                                    <th class="text-uppercase border-0 font-medium" scope="col"><a
+                                            @click="sort('name')">姓名</a></th>
+                                    <th class="text-uppercase border-0 font-medium" scope="col"><a
+                                            @click="sort('id')">ID</a></th>
+                                    <th class="text-uppercase border-0 font-medium" scope="col"><a
+                                            @click="sort('school')">學校</a></th>
+                                    <th class="text-uppercase border-0 font-medium" scope="col"><a
+                                            @click="sort('joindate')">加入日期</a></th>
+                                    <th class="text-uppercase border-0 font-medium" scope="col"><a
+                                            @click="sort('isAdmin')">身分</a></th>
                                     <th class="text-uppercase border-0 font-medium" scope="col">管理</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="item in accountsData" :key="item.id">
-                                    <td><h5 class="font-medium mb-0">{{ item.name }}</h5></td>
+                                <tr v-for="(item, index) in accountsData" :key="item.id">
+                                    <td><span class="font-medium mb-0">{{ index + 1 }}</span></td>
+                                    <td>
+                                        <h5 class="font-medium mb-0">{{ item.name }}</h5>
+                                    </td>
                                     <td><span class="text-muted">{{ item.id }}</span><br></td>
                                     <td><span class="text-muted">{{ item.school }}</span><br></td>
-                                    <td><span class="text-muted">{{ new Date(item.joindate).toLocaleDateString() }}</span><br></td>
-                                    <td><span>{{ (item.isAdmin==true) ? '管理員' : '學生' }}</span></td>
+                                    <td><span class="text-muted">{{ new Date(item.joindate).toLocaleDateString()
+                                    }}</span><br></td>
+                                    <td><span>{{ (item.isAdmin == true) ? '管理員' : '學生' }}</span></td>
                                     <td style="padding: 0;">
                                         <div class="container d-flex justify-content-around">
-                                            <router-link class="col btn btn-secondary mx-1" type="button" title="edit" :to="{ name:'accountsEditing', params:{ id:item.id } }">
+                                            <router-link class="col btn btn-secondary mx-1 btn_edit" type="button"
+                                                title="edit" :to="{ name: 'accountsEditing', params: { id: item.id } }">
                                                 <i class="bi bi-pencil-square"></i>
                                             </router-link>
-                                            <button v-if="item.isBanned==false" class="col btn btn-secondary mx-1" type="button" title="ban" @click="banUser(item.id)">
+                                            <button v-if="item.isBanned == false" class="col btn btn-secondary mx-1 btn_ban"
+                                                type="button" title="ban" @click="banUser(item.id)">
                                                 <i class="bi bi-x-circle"></i>
                                             </button>
-                                            <button v-else class="col btn btn-danger mx-1" type="button" title="active" @click="unbanUser(item.id)">
+                                            <button v-else class="col btn btn-danger mx-1 btn_ban" type="button"
+                                                title="active" @click="unbanUser(item.id)">
                                                 <i class="bi bi-x-circle"></i>
                                             </button>
-                                            <button v-if="item.isDeleted==false" class="col btn btn-secondary mx-1" type="button" title="delete" @click="deleteUser(item.id)">
+                                            <button v-if="item.isDeleted == false"
+                                                class="col btn btn-secondary mx-1 btn_delete" type="button" title="delete"
+                                                @click="deleteUser(item.id)">
                                                 <i class="bi bi-trash"></i>
                                             </button>
-                                            <button v-else class="col btn btn-danger mx-1" type="button" title="active" @click="restoreUser(item.id)">
+                                            <button v-else class="col btn btn-danger mx-1 btn_delete" type="button"
+                                                title="active" @click="restoreUser(item.id)">
                                                 <i class="bi bi-magic"></i>
                                             </button>
                                         </div>
@@ -55,17 +71,32 @@
 </template>
 
 <script>
+// eslint-disable-next-line
+let id_name = {
+    1: name
+}
 import { ajax } from '@/lib/util'
 export default {
     name: 'accountHome',
     data() {
         return {
+            sortStatus: false, //降序升序
             accountsData: undefined,
         }
     },
     methods: {
+        sort(col) {
+            this.accountsData.sort((a, b) => {
+                this.sortStatus = -1 * this.sortStatus;
+                return a[col].localeCompare(b[col]);
+            })
+            if(this.sortStatus) {
+                this.accountsData.reverse();
+            }
+            this.sortStatus = !this.sortStatus;
+        },
         getUsers() {
-            ajax.get('admin/getUsers',{},
+            ajax.get('admin/getUsers', {},
                 (res) => {
                     this.accountsData = res.data;
                 },
@@ -75,10 +106,9 @@ export default {
             )
         },
         banUser(id) {
-            ajax.post('admin/banUser',{id: id},
+            ajax.post('admin/banUser', { id: id },
                 () => {
                     this.getUsers();
-                    alert('已停權用戶');
                 },
                 (err) => {
                     console.log(err)
@@ -86,10 +116,9 @@ export default {
             )
         },
         unbanUser(id) {
-            ajax.post('admin/unbanUser',{id: id},
+            ajax.post('admin/unbanUser', { id: id },
                 () => {
                     this.getUsers();
-                    alert('已復權用戶');
                 },
                 (err) => {
                     console.log(err)
@@ -97,10 +126,9 @@ export default {
             )
         },
         deleteUser(id) {
-            ajax.post('admin/deleteUser',{id: id},
+            ajax.post('admin/deleteUser', { id: id },
                 () => {
                     this.getUsers();
-                    alert('已將用戶排定刪除');
                 },
                 (err) => {
                     console.log(err)
@@ -108,10 +136,9 @@ export default {
             )
         },
         restoreUser(id) {
-            ajax.post('admin/restoreUser',{id: id},
+            ajax.post('admin/restoreUser', { id: id },
                 () => {
                     this.getUsers();
-                    alert('已重啟用戶');
                 },
                 (err) => {
                     console.log(err)
