@@ -12,12 +12,13 @@
                                 <tr>
                                     <th class="text-uppercase border-0 font-medium" scope="col">#</th>
                                     <th class="text-uppercase border-0 font-medium" scope="col"><a
-                                            @click="sort('name')">姓名</a></th>
-                                    <th class="text-uppercase border-0 font-medium" scope="col"><a @click="sort('id')">ID</a></th>
+                                            @click="sortBy = 'name'">姓名</a></th>
+                                    <th class="text-uppercase border-0 font-medium" scope="col"><a
+                                            @click="sortBy = 'id'">ID</a></th>
                                     <th class="text-uppercase border-0 font-medium" scope="col">Email</th>
                                     <th class="text-uppercase border-0 font-medium" scope="col">學校</th>
                                     <th class="text-uppercase border-0 font-medium" scope="col"><a
-                                            @click="sort('joindate')">加入日期</a></th>
+                                            @click="sortBy = 'joindate'">加入日期</a></th>
                                     <th class="text-uppercase border-0 font-medium" scope="col">身分</th>
                                     <th class="text-uppercase border-0 font-medium" scope="col">管理</th>
                                 </tr>
@@ -31,7 +32,8 @@
                                     <td><span class="text-muted">{{ item.id }}</span><br></td>
                                     <td><span class="text-muted">{{ item.email }}</span></td>
                                     <td><span class="text-muted">{{ item.school }}</span><br></td>
-                                    <td><span class="text-muted">{{ new Date(item.joindate).toLocaleDateString() }}</span><br></td>
+                                    <td><span class="text-muted">{{ new Date(item.joindate).toLocaleDateString()
+                                    }}</span><br></td>
                                     <td><span>{{ (item.isAdmin == true) ? '管理員' : '學生' }}</span></td>
                                     <td style="padding: 0;">
                                         <div class="container d-flex justify-content-around">
@@ -79,7 +81,13 @@ export default {
     data() {
         return {
             sortStatus: false, //降序升序
+            sortBy: 'name',
             accountsData: undefined,
+        }
+    },
+    watch: {
+        sortBy: (val) => {
+            this.sort(val);
         }
     },
     methods: {
@@ -148,7 +156,8 @@ export default {
         this.getUsers();
         setInterval(() => {
             this.getUsers();
-        }, 10000)
+            this.sort(this.sortBy);
+        }, 5000)
     },
 }
 </script>
