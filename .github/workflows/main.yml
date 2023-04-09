@@ -16,10 +16,16 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '19'
-      - name: Clone Index
-        run: git clone https://github.com/TeamCoderX/joinstu-admin-vue.git
+      - name: Clone Vue
+        run: |
+          git clone https://github.com/TeamCoderX/joinstu-admin-vue.git
+          git clone https://github.com/TeamCoderX/joinstu-index-vue.git
       - name: Setup Index Files
         working-directory: ./joinstu-admin-vue
+        run: |
+          npm install
+      - name: Setup Index Files
+        working-directory: ./joinstu-index-vue
         run: |
           npm install
       - name: Clone backend 
@@ -29,11 +35,12 @@ jobs:
         working-directory: ./joinstu-backend
         run: |
           if [ -e ".gitignore" ];then rm -rf ".gitignore" ; fi
-          bash build.sh admin
+          bash build.sh admin index
       - name: Commit Files
         working-directory: ./joinstu-backend
         run: |
           git add dist/admin/
+          git add dist/index/
           git config --global url."git@github.com:".insteadOf "https://github.com/"
           git config --global user.email "action@coderx.com"
           git config --global user.name "Team-coderX"
