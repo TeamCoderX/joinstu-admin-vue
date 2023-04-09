@@ -86,7 +86,7 @@ export default {
         }
     },
     watch: {
-        sortBy: (val) => {
+        sortBy: function(val) {
             this.sort(val);
         }
     },
