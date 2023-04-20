@@ -72,9 +72,13 @@
 
 <script>
 // eslint-disable-next-line
+/*
 let id_name = {
-    1: name
+    1: '學生',
+    2: '系統管理員'
+    3: '教師'
 }
+*/
 import { ajax } from '@/lib/util'
 export default {
     name: 'accountHome',
@@ -154,10 +158,7 @@ export default {
     },
     created() {
         this.getUsers();
-        setInterval(() => {
-            this.getUsers();
-            this.sort(this.sortBy);
-        }, 5000)
+        this.sortBy(this.sort);
     },
 }
 </script>
